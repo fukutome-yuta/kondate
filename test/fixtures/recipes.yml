@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 
+  cooked: false
+  name: MyString
+  url: MyString
+  cooking_recipe: MyText
+  cooked_at: 2019-10-31
+
+two:
+  user_id: 
+  cooked: false
+  name: MyString
+  url: MyString
+  cooking_recipe: MyText
+  cooked_at: 2019-10-31

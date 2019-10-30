@@ -5,19 +5,19 @@
 
 = form_with model: [:admin, user], local: true do |f|
   .form-group
-    = f.label :name, '–¼‘O'
+    = f.label :name, 'åå‰'
     = f.text_field :name, class: 'form-control'
   .form-group
-    = f.label :name, 'ƒ[ƒ‹ƒAƒhƒŒƒX'
+    = f.label :email, 'ãƒ¡ãƒ¼ãƒ«ã‚¢ãƒ‰ãƒ¬ã‚¹'
     = f.text_field :email, class: 'form-control'
   .form-group
-    = f.label :password, 'ƒpƒXƒ[ƒh'
+    = f.label :password, 'ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰'
     = f.password_field :password, class: 'form-control'
   .form-group
-    = f.label :password_confirmation, 'ƒpƒXƒ[ƒh(Šm”F)'
+    = f.label :password_confirmation, 'ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰(ç¢ºèª)'
     = f.password_field :password_confirmation, class: 'form-control'
   .form-check
     = f.label :admin, class: 'form-check-label' do
       = f.check_box :admin, class: 'form-check-input'
-      | ŠÇ—ÒŒ ŒÀ
-  = f.submit '“o˜^‚·‚é', class: 'btn btn-primary'
+      | ç®¡ç†è€…æ¨©é™
+  = f.submit 'ç™»éŒ²ã™ã‚‹', class: 'btn btn-primary'
