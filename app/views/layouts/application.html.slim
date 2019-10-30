@@ -10,5 +10,9 @@ html
   body
     .app-title.navbar.navbar-expand-md.navbar-light.bg-light
       .navbar-brand KondateApp
+      ul.navbar-nav.ml-auto
+        li.nav-item= link_to 'ユーザー一覧', admin_users_path, class: 'nav-link'
     .container
+      - if flash.notice.present?
+        .alert.alert-success= flash.notice
       = yield
