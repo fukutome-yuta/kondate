@@ -1,0 +1,29 @@
+h1 レシピの編集
+
+.nav.justify-content-end
+  = link_to '一覧', recipes_path, class: 'nav-link'
+
+- if @recipe.errors.present?
+  ul#error_explanation
+    - @recipe.errors.full_message.each do |message|
+      li= message
+
+= form_with model: @recipe, local: true do |f|
+  .form-check
+    = f.label :cooked, class: 'form-check-label' do
+      = f.check_box :cooked, class: 'form-check-input'
+      | 調理済み
+  br
+  .form-group
+    = f.label :name
+    = f.text_field :name, class: 'form-control'
+  .form-group
+    = f.label :url
+    = f.text_field :url, class: 'form-control'
+  .form-group
+    = f.label :cooking_recipe
+    = f.text_area :cooking_recipe, rows: "15", class: 'form-control', id: 'cooking_recipe'
+  .form-group
+    = f.label :cooked_at
+    = f.date_field :cooked_at, class: 'form-control'
+  = f.submit nil, class: 'btn btn-primary'

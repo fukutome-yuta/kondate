@@ -1,0 +1,24 @@
+h1 レシピ一覧
+
+= link_to '新規登録', new_recipe_path, class: 'btn btn-primary'
+
+.mb-3
+table.table.table-hover
+  thead.thead-default
+    tr
+      th= Recipe.human_attribute_name(:cooked)
+      th= Recipe.human_attribute_name(:name)
+      th= Recipe.human_attribute_name(:url)
+      th= Recipe.human_attribute_name(:cooked_at)
+      th
+  tbody
+    - @recipes.each do |recipe|
+      tr id="recipe-#{recipe.id}"
+        td= recipe.cooked ? '✓' : ''
+        td= link_to recipe.name, recipe_path(recipe)
+        td= link_to recipe.url, recipe.url
+        td= recipe.cooked_at
+        td
+          = link_to '編集', edit_recipe_path(recipe), class: 'btn btn-primary mr-3'
+          = link_to '削除', recipe, method: :delete, remote: true, data: { confirm: "レシピ「#{recipe.name}」を削除します。よろしいですか？"}, class: 'btn btn-danger'
+

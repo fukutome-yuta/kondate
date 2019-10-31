@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
 
     if user&.authenticate(session_params[:password])
       session[:user_id] = user.id
-      redirect_to root_path, notice: 'ƒƒOƒCƒ“‚µ‚Ü‚µ‚½B'
+      redirect_to root_path, notice: 'ãƒ­ã‚°ã‚¤ãƒ³ã—ã¾ã—ãŸã€‚'
     else
       render :new
     end
@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
 
   def destroy
     reset_session
-    redirect_to root_path, notice: 'ƒƒOƒAƒEƒg‚µ‚Ü‚µ‚½B'
+    redirect_to root_path, notice: 'ãƒ­ã‚°ã‚¢ã‚¦ãƒˆã—ã¾ã—ãŸã€‚'
   end
 
   private

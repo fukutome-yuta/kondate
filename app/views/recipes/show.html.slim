@@ -1,0 +1,27 @@
+h1 レシピの詳細
+
+.nav.justify-content-end
+  = link_to '一覧', recipes_path, class: 'nav-link'
+table.table.table-hover
+  tbody
+    tr
+      th= Recipe.human_attribute_name(:id)
+      td= @recipe.id
+    tr
+      th= Recipe.human_attribute_name(:cooked)
+      td= @recipe.cooked ? '✓' : ''
+    tr
+      th= Recipe.human_attribute_name(:name)
+      td= @recipe.name
+    tr
+      th= Recipe.human_attribute_name(:url)
+      td= link_to @recipe.url, @recipe.url
+    tr
+      th= Recipe.human_attribute_name(:cooking_recipe)
+      td= simple_format(h(@recipe.cooking_recipe), {}, sanitize: false, wrapper_tag: "div")
+    tr
+      th= Recipe.human_attribute_name(:cooked_at)
+      td= @recipe.cooked_at
+
+= link_to '編集', edit_recipe_path, class: 'btn btn-primary mr-3'
+= link_to '削除', @recipe, method: :delete, data: { confirm: "レシピ「#{@recipe.name}」を削除します。よろしいですか？"}, class: 'btn btn-danger'

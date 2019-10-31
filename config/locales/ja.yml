@@ -21,6 +21,15 @@ ja:
         admin: 管理者権限
         created_at: 登録日時
         updated_at: 更新日時 
+      recipe:
+        id: ID
+        cooked: 調理済み
+        name: 料理名
+        url: URL
+        cooking_recipe: レシピ
+        cooked_at: 最後に調理した日
+        created_at: 登録日時
+        updated_at: 更新日時 
   date:
     abbr_day_names:
     - 日

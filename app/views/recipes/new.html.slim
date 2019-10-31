@@ -1,0 +1,20 @@
+h1 レシピの新規登録
+
+.nav.justify-content-end
+  = link_to '一覧', recipes_path, class: 'nav-link'
+
+- if @recipe.errors.present?
+  ul#errors.full_messages.each do |message|
+    li= message
+
+= form_with model: @recipe, local: true do |f|
+  .form-group
+    = f.label :name
+    = f.text_field :name, class: 'form-control'
+  .form-group
+    = f.label :url
+    = f.text_field :url, class: 'form-control'
+  .form-group
+    = f.label :cooking_recipe
+    = f.text_area :cooking_recipe, row: 10, class: 'form-control', id: 'cooking_recipe'
+  = f.submit nil, class: 'btn btn-primary'
