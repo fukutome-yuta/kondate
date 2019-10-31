@@ -1,10 +1,10 @@
 class CreateRecipes < ActiveRecord::Migration[5.2]
   def change
     create_table :recipes do |t|
-      t.int :user_id
-      t.boolean :cooked
-      t.string :name
-      t.string :url
+      t.references :user, foreign_key: true, null: false, index: true
+      t.boolean :cooked, default: false
+      t.string :name, null: false
+      t.string :url, null: false, unique: true
       t.text :cooking_recipe
       t.date :cooked_at
 
