@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cooked: 
+  name: 
+  url: 
+  schedule: MyString
+  date: MyString
+
+two:
+  cooked: 
+  name: 
+  url: 
+  schedule: MyString
+  date: MyString
