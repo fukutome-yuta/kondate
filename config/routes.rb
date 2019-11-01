@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  get 'menus/index'
-  get 'menus/show'
-  get 'menus/new'
-  get 'menus/edit'
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
@@ -12,6 +8,7 @@ Rails.application.routes.draw do
 
   root to: 'recipes#index'
   resources :recipes
+  resources :menus
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
