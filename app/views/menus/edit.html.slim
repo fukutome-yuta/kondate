@@ -1,2 +1,21 @@
-h1 Menus#edit
-p Find me in app/views/menus/edit.html.slim
+h1 献立表編集
+
+.mb-3
+table.table.table-hover
+  thead.thead-default
+    tr
+      th= Menu.human_attribute_name(:schedule)
+      th= Menu.human_attribute_name(:name)
+      th= Menu.human_attribute_name(:url)
+      th= Menu.human_attribute_name(:cooked)
+      th
+  tbody
+    - @menus.each do |menu|
+      tr id="menu-#{menu.id}"
+        td= menu.schedule
+        td= link_to menu.name, recipe_path(menu.recipe_id)
+        td= link_to menu.url, menu.url
+        td= menu.cooked
+        td
+          - edit_btn = menu.recipe_id.present? ? '変更' : '追加'
+          = link_to edit_btn, edit_menu_path(menu), class: 'btn btn-primary mr-3'

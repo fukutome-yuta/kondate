@@ -23,11 +23,19 @@ ja:
         updated_at: 更新日時 
       recipe:
         id: ID
-        cooked: 調理済み
+        cooked: 作ったチェック
         name: 料理名
         url: URL
         cooking_recipe: レシピ
         cooked_at: 最後に調理した日
+        created_at: 登録日時
+        updated_at: 更新日時 
+      menu:
+        id: ID
+        schedule: 日付
+        name: 料理名
+        url: URL
+        cooked: 作ったチェック
         created_at: 登録日時
         updated_at: 更新日時 
   date:

@@ -12,6 +12,7 @@ html
       .navbar-brand KondateApp
       ul.navbar-nav.ml-auto
         - if current_user
+          li.nav-item= link_to '献立表', menus_path, class: 'nav-link'
           li.nav-item= link_to 'レシピ一覧', recipes_path, class: 'nav-link'
           - if current_user.admin?
             li.nav-item= link_to 'ユーザー一覧', admin_users_path, class: 'nav-link'
