@@ -13,9 +13,10 @@ table.table.table-hover
     - @menus.each do |menu|
       tr id="menu-#{menu.id}"
         td= menu.schedule
-        td= link_to menu.name, recipe_path(menu.recipe_id)
+        td= menu.name
+        - menu.url ||= ''
         td= link_to menu.url, menu.url
         td= check_box menu.cooked, { checked: menu.cooked }
         td
           - edit_btn = menu.recipe_id.present? ? '変更' : '追加'
-          = link_to edit_btn, edit_menu_path(menu), class: 'btn btn-primary mr-3'
+          = link_to edit_btn, select_path(menu), class: 'btn btn-primary mr-3'

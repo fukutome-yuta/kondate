@@ -8,7 +8,9 @@ Rails.application.routes.draw do
 
   root to: 'recipes#index'
   resources :recipes
-  resources :menus
+  resources :menus, only: [:index, :new, :create, :update]
+  get '/menus/edit', to: 'menus#edit'
+  get '/menus/select/:id', to: 'menus#select', as: 'select'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

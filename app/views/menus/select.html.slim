@@ -1,0 +1,31 @@
+h1 レシピ一覧から選択
+
+p
+  h5 変更前
+  table  
+    tr
+      th 日付：
+      td= @menu.schedule
+    tr
+      th 料理名：
+      td= @menu.name
+    
+
+.mb-3
+table.table.table-hover
+  thead.thead-default
+    tr
+      th= Recipe.human_attribute_name(:cooked)
+      th= Recipe.human_attribute_name(:name)
+      th= Recipe.human_attribute_name(:url)
+      th= Recipe.human_attribute_name(:cooked_at)
+      th
+  tbody
+    - @recipes.each do |recipe|
+      tr id="recipe-#{recipe.id}"
+        td= recipe.cooked ? '✓' : ''
+        td= link_to recipe.name, recipe_path(recipe)
+        td= link_to recipe.url, recipe.url
+        td= recipe.cooked_at
+        td
+          = link_to '選択', edit_recipe_path(recipe), class: 'btn btn-primary mr-3'
