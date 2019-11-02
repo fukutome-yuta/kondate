@@ -15,7 +15,7 @@ table.table.table-hover
         td= menu.schedule
         td= link_to menu.name, recipe_path(menu.recipe_id)
         td= link_to menu.url, menu.url
-        td= menu.cooked
+        td= check_box menu.cooked, { checked: menu.cooked }
         td
           - edit_btn = menu.recipe_id.present? ? '変更' : '追加'
           = link_to edit_btn, edit_menu_path(menu), class: 'btn btn-primary mr-3'
