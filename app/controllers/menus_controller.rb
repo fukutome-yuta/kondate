@@ -2,7 +2,13 @@ class MenusController < ApplicationController
   def index
     @menus = current_user.menus.recent
 
-    render :new unless @menus.present?
+    unless @menus.present?
+      redirect_to new_menu_url, notice: "献立表を作成してください。"
+    else
+      unless current_user.list_completed?
+        render :edit
+      end
+    end    
   end
 
   def select

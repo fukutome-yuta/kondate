@@ -1,14 +1,16 @@
 h1 レシピ一覧から選択
 
 p
-  h5 変更前
+  - if @menu.name.present?
+    h5 変更前
   table  
     tr
       th 日付：
       td= @menu.schedule
-    tr
-      th 料理名：
-      td= @menu.name
+    - if @menu.name.present?
+      tr
+        th 料理名：
+        td= @menu.name
     
 
 .mb-3
