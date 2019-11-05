@@ -30,4 +30,4 @@ table.table.table-hover
         td= link_to recipe.url, recipe.url
         td= recipe.cooked_at
         td
-          = link_to '選択', edit_recipe_path(recipe), class: 'btn btn-primary mr-3'
+          = link_to '選択', {controller: "menus", action: "update", before_id: @menu.recipe_id, after_id: recipe.id}, method: :post, class: 'btn btn-primary mr-3'
