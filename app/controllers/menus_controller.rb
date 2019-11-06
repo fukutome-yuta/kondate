@@ -27,26 +27,23 @@ class MenusController < ApplicationController
     start_date = Date.parse(params[:start_date])
     end_date = Date.parse(params[:end_date])
 
-    menus = []
-
-    (start_date..end_date).each do |date|
-      #menu = current_user.menus.new(schedule: date)
-      menus << current_user.menus.new(schedule: date)
-      #menu.save!
+    Menu.transaction do
+      (start_date..end_date).each do |date|
+        menu = current_user.menus.new(schedule: date)
+        menu.save!
+      end
     end
-    current_user.menus.import menus
-      # unless menu.save
-      #   redirect_to new_menu_url, notice: "献立表の作成に失敗しました。" and return
-      # end 
-    redirect_to menus_edit_url, notice: "献立表を作成しました。"
+      redirect_to menus_edit_url, notice: "献立表を作成しました。"
+    rescue => e
+      raise ActiveRecord::Rollback
+      redirect_to new_menu_url, notice: "献立表の作成に失敗しました。"
   end
 
   def update
-    before = params[:before_id]
-    after = params[:after_id]
-    logger.debug before
-    logger.debug after
-    redirect_to menus_edit_url
+    before = current_user.menus.find(params[:before_id])
+    after = current_user.recipes.find(params[:after_id])
+    before.update!(name: after.name, url: after.url)
+    redirect_to menus_url, notice: "献立表に「#{after.name}」を追加しました。"
   end
 
   private
