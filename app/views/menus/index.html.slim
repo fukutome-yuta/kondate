@@ -8,7 +8,6 @@ table.table.table-hover
       th= Menu.human_attribute_name(:name)
       th= Menu.human_attribute_name(:url)
       th= Menu.human_attribute_name(:cooked)
-      th
   tbody
     - @menus.each do |menu|
       tr id="menu-#{menu.id}"
@@ -16,11 +15,6 @@ table.table.table-hover
         td= link_to menu.name, recipe_path(menu.recipe_id)
         td= link_to menu.url, menu.url
         td= check_box menu.cooked, { checked: menu.cooked }
-        td
-          - edit_btn = menu.recipe_id.present? ? '変更' : '追加'
-          = link_to edit_btn, edit_menu_path(menu), class: 'btn btn-primary mr-3'
 
-- if @menus.present?
-  = link_to '削除', @manus, method: :delete, remote: true, data: { confirm: '献立表を削除します。よろしいですか？' }, class: 'btn btn-danger'
-- else
-  = link_to '献立表作成', new_menu_path, class: 'btn btn-primary'
+= link_to '編集', menus_edit_path, class: 'btn btn-primary'
+= link_to '削除', @manus, method: :delete, remote: true, data: { confirm: '献立表を削除します。よろしいですか？' }, class: 'btn btn-danger'

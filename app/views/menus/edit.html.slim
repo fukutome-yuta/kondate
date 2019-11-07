@@ -18,3 +18,6 @@ table.table.table-hover
         td
           - edit_btn = menu.recipe_id.present? ? '変更' : '追加'
           = link_to edit_btn, select_path(menu), class: 'btn btn-primary mr-3'
+
+- if @completed
+  = link_to '完成', menus_path, data: { confirm: '献立表の編集は完了でよろしいですか？' }, class: 'btn btn-primary'

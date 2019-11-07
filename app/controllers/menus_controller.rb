@@ -21,6 +21,10 @@ class MenusController < ApplicationController
 
   def edit
     @menus = current_user.menus.all
+    @menus.each do |m|
+      @completed = m.recipe_id.present?
+      break unless @completed
+    end
   end
 
   def create
@@ -43,7 +47,8 @@ class MenusController < ApplicationController
     before = current_user.menus.find(params[:before_id])
     after = current_user.recipes.find(params[:after_id])
     before.update!(name: after.name, url: after.url)
-    redirect_to menus_url, notice: "献立表に「#{after.name}」を追加しました。"
+    message = before.name.present? ? "#{before.schedule}のメニューを変更しました。" : "献立表に「#{after.name}」を追加しました。"
+    redirect_to menus_url, notice: message
   end
 
   private
