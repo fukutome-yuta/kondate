@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   get '/menus/edit', to: 'menus#edit'
   get '/menus/select/:id', to: 'menus#select', as: 'select'
   post '/menus/update', to: 'menus#update'
+  get '/menus/complete', to: 'menus#complete'
+  delete '/menus/destroy', to: 'menus#destroy'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
