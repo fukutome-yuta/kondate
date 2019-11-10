@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  recipe: one
+  foreign_key: 
+  'null': 
+  name: 
+  quantity: 
+  unit: MyString
+
+two:
+  recipe: two
+  foreign_key: 
+  'null': 
+  name: 
+  quantity: 
+  unit: MyString
