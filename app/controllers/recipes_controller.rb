@@ -24,6 +24,10 @@ class RecipesController < ApplicationController
     end
   end
 
+  def fetch
+    
+  end
+
   def update
     recipe = current_user.recipes.find(params[:id])
     recipe.update!(recipe_params)

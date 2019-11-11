@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   root to: 'recipes#index'
   resources :recipes
+  post '/recipes/fetch', to: 'recipes#fetch'
+
   resources :menus, only: [:index, :new, :create]
   get '/menus/edit', to: 'menus#edit'
   get '/menus/select/:id', to: 'menus#select', as: 'select'
