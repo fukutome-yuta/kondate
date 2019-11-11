@@ -13,7 +13,6 @@ table.table.table-hover
       tr id="menu-#{menu.id}"
         td= menu.schedule
         td= menu.name
-        - menu.url ||= ''
         td= link_to menu.url, menu.url
         td
           - edit_btn = menu.recipe_id.present? ? '変更' : '追加'

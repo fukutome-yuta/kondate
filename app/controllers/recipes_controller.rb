@@ -25,7 +25,9 @@ class RecipesController < ApplicationController
   end
 
   def fetch
-    
+    @recipe = current_user.recipes.new
+    @recipe.fetch(params[:fetch_url])
+    render :new
   end
 
   def update
