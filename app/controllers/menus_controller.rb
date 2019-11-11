@@ -38,7 +38,7 @@ class MenusController < ApplicationController
         menu.save!
       end
     end
-      redirect_to menus_edit_url, notice: "献立表を作成しました。"
+      redirect_to menus_edit_url, notice: "献立表にメニューを追加してください。"
     rescue => e
       raise ActiveRecord::Rollback
       redirect_to new_menu_url, notice: "献立表の作成に失敗しました。"

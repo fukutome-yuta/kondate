@@ -16,7 +16,7 @@ class Recipe < ApplicationRecord
     steps_text = ''
     
     step.each do |s|
-      steps_text << "#{i}.#{s.text}\n"
+      steps_text << "#{i}.#{s.text.gsub!(/(\r\n|\r|\n)/, "")}\n"
       i = i + 1
     end
     
