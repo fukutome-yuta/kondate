@@ -6,15 +6,15 @@ h1 レシピの新規登録
 - if @recipe.errors.present?
   ul#errors.full_messages.each do |message|
     li= message
-
-= form_with url: recipes_fetch_path, local: true do |f|
-  p 取り込みたいレシピのURLを入力してください
-  .form-row.align-items-center
-    .col-auto
-      = f.label '取込URL'
-      = f.text_field :fetch_url, class: 'form-control'
-    .col-auto
-      = f.submit '取込', class: 'btn btn-primary'
+p
+  = form_with url: recipes_fetch_path, local: true do |f|
+    p 取り込みたいレシピのURLを入力してください
+    .form-inline.align-items-center
+      .col-auto
+        = f.label '取込URL'
+        = f.text_field :fetch_url, class: 'form-control'
+      .col-auto
+        = f.submit '取込', class: 'btn btn-primary'
 
 = form_with model: @recipe, local: true do |f|
   .form-group

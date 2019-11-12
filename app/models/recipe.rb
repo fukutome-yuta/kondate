@@ -12,13 +12,16 @@ class Recipe < ApplicationRecord
     title = page.search('.recipe-title')
     step = page.search('.step_text')
 
-    i = 1
     steps_text = ''
-    
-    step.each do |s|
-      steps_text << "#{i}.#{s.text.gsub!(/(\r\n|\r|\n)/, "")}\n"
-      i = i + 1
+    step.length.times do |i|
+      steps_text << "#{i+1}.#{step(i).text.gsub!(/(\r\n|\r|\n)/, "")}\n"
     end
+
+    # i = 1
+    # step.each do |s|
+    #   steps_text << "#{i}.#{s.text.gsub!(/(\r\n|\r|\n)/, "")}\n"
+    #   i = i + 1
+    # end
     
     self.name = title.text
     self.url = url

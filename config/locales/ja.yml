@@ -8,9 +8,11 @@ ja:
           has_one: "%{record}が存在しているので削除できません"
           has_many: "%{record}が存在しているので削除できません"
     models:
+      user: ユーザー
       recipe: 料理
       menu: 献立
       shopping_list: 買い物リスト
+      ingredient: 材料
     attributes:
       user:
         id: ID
@@ -38,6 +40,10 @@ ja:
         cooked: 作ったチェック
         created_at: 登録日時
         updated_at: 更新日時 
+      ingredient:
+        name: 材料名
+        amount: 分量
+        quantity: 分量
   date:
     abbr_day_names:
     - 日
