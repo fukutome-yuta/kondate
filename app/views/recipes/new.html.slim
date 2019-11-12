@@ -26,12 +26,11 @@ p
   .form-group
     = f.label :cooking_recipe
     = f.text_area :cooking_recipe, value: @recipe.cooking_recipe, row: 10, class: 'form-control', id: 'cooking_recipe'
-  - @ingredients.each do |ingredient|
-    = f.fields_for :incredients do |i|
-      .form-group
-        = i.label :name
-        = i.text_field :name, value: ingredient.name, class: 'form-control'
-      .form-group
-        = i.label :amount
-        = i.text_field :amount, value: ingredient.amount, class: 'form-control'
+  = f.fields_for :incredients do |i|
+    .form-group
+      = i.label :name
+      = i.text_field :name, value: @ingredients.name, class: 'form-control'
+    .form-group
+      = i.label :amount
+      = i.text_field :amount, value: @ingredients.amount, class: 'form-control'
   = f.submit nil, class: 'btn btn-primary'

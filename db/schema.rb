@@ -20,7 +20,6 @@ ActiveRecord::Schema.define(version: 2019_11_10_081943) do
     t.string "name"
     t.string "amount"
     t.float "quantity"
-    t.string "unit"
     t.integer "unit_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

@@ -1,10 +1,10 @@
 class Recipe < ApplicationRecord
   attr_accessor :ingredients_attributes
-  accepts_nested_attributes_for :ingredients
   validates :name, presence: true
   belongs_to :user
-  has_many :ingredients
+  has_many :ingredients, dependent: :destroy
   has_one :menu
+  accepts_nested_attributes_for :ingredients
 
   scope :recent, -> { order(cooked: :asc) }
 
@@ -26,7 +26,8 @@ class Recipe < ApplicationRecord
     self.cooking_recipe = steps_text
 
     @ingredients =  ingredient_name.length.times.map do |i| 
-                      Ingredient.new( name: ingredient_name[i].text.gsub!(/(\r\n|\r|\n)/, ""), amount: ingredient_quantity[i].text.gsub!(/(\r\n|\r|\n)/, "") )
+                      Ingredient.new( name: ingredient_name[i].text, amount: ingredient_quantity[i].text )
                     end
+    logger.debug @ingredients
   end
 end
