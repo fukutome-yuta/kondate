@@ -7,20 +7,20 @@ name = page.search('.ingredient_name')
 quantity = page.search('.ingredient_quantity')
 step = page.search('.step_text')
 ingredients = []
-i = 0
+
 puts title.text
-name.each do |n|
-  ingredient = { name: n.text, quantity: quantity[i].text }
-  ingredients << ingredient
-  i = i + 1
-end
+
+ingredients = name.length.times.map { |i| { name: name[i].text.gsub!(/(\r\n|\r|\n)/, ""), quantity: quantity[i].text.gsub!(/(\r\n|\r|\n)/, "") } }
+
+puts ingredients
 
 ingredients.each do |ing|
   puts "#{ing[:name]}：#{ing[:quantity]}"
 end
 
-i = 1
-step.each do |s|
-  puts "#{i}.#{s.text}"
-  i = i + 1
+steps_text = ''
+step.length.times do |i|
+  steps_text << "#{i+1}.#{step[i].text.gsub!(/(\r\n|\r|\n)/, "")}\n"
 end
+
+puts steps_text
