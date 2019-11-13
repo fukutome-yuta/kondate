@@ -9,7 +9,7 @@ class RecipesController < ApplicationController
 
   def new
     @recipe = current_user.recipes.new
-    @ingredients = @recipe.ingredients.new
+    @recipe.ingredients.new
   end
 
   def edit

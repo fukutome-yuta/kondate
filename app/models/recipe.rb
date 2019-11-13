@@ -1,5 +1,5 @@
 class Recipe < ApplicationRecord
-  attr_accessor :ingredients_attributes
+  attr_accessor :ingredients_attributes, :ingredient_array
   validates :name, presence: true
   belongs_to :user
   has_many :ingredients, dependent: :destroy
@@ -14,6 +14,8 @@ class Recipe < ApplicationRecord
     self.name = fetch_data.title
     self.url = fetch_data.url
     self.cooking_recipe = fetch_data.recipe
-    @ingredients = fetch_data.ingredients
+    self.ingredients_attributes =  fetch_data.names.length.times.map do |i| 
+                                        self.ingredients.new( name: fetch_data.names[i], amount: fetch_data.quantitys[i] )
+                                      end
   end
 end

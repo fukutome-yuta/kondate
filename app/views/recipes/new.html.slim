@@ -29,8 +29,8 @@ p
   = f.fields_for :ingredients do |i|
     .form-group
       = i.label :name
-      = i.text_field :name, value: @ingredients.name, class: 'form-control'
+      = i.text_field :name, value: i.object.name, class: 'form-control'
     .form-group
       = i.label :amount
-      = i.text_field :amount, value: @ingredients.amount, class: 'form-control'
+      = i.text_field :amount, value: i.object.amount, class: 'form-control'
   = f.submit nil, class: 'btn btn-primary'

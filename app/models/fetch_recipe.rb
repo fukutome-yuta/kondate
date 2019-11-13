@@ -1,10 +1,11 @@
 class FetchRecipe
   include ActiveModel::Model
-  attr_accessor :title, :url, :recipe, :ingredients
+  attr_accessor :title, :url, :recipe, :names, :quantitys
 
   def initialize(url)
     agent = Mechanize.new
     @page = agent.get(url)
+    @url = url
   end
   
   def cookpad
@@ -19,11 +20,8 @@ class FetchRecipe
     end
     
     @title = title.text
-    @url = url
     @recipe = steps_text
-
-    @ingredients =  ingredient_name.length.times.map do |i| 
-                      Ingredient.new( name: ingredient_name[i].text, amount: ingredient_quantity[i].text )
-                    end
+    @names = ingredient_name.length.times.map { |i| ingredient_name[i].text.strip }
+    @quantitys = ingredient_quantity.length.times.map { |i| ingredient_quantity[i].text.strip }
   end
 end
