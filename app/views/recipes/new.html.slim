@@ -26,7 +26,7 @@ p
   .form-group
     = f.label :cooking_recipe
     = f.text_area :cooking_recipe, value: @recipe.cooking_recipe, row: 10, class: 'form-control', id: 'cooking_recipe'
-  = f.fields_for :incredients do |i|
+  = f.fields_for :ingredients do |i|
     .form-group
       = i.label :name
       = i.text_field :name, value: @ingredients.name, class: 'form-control'
