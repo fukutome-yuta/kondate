@@ -9,25 +9,11 @@ class Recipe < ApplicationRecord
   scope :recent, -> { order(cooked: :asc) }
 
   def fetch(url)
-    agent = Mechanize.new
-    page = agent.get(url)
-    title = page.search('.recipe-title')
-    step = page.search('.step_text')
-    ingredient_name = page.search('.ingredient_name')
-    ingredient_quantity = page.search('.ingredient_quantity')
-
-    steps_text = ''
-    step.length.times do |i|
-      steps_text << "#{i+1}.#{step[i].text.gsub!(/(\r\n|\r|\n)/, "")}\n"
-    end
-    
-    self.name = title.text
-    self.url = url
-    self.cooking_recipe = steps_text
-
-    @ingredients =  ingredient_name.length.times.map do |i| 
-                      Ingredient.new( name: ingredient_name[i].text, amount: ingredient_quantity[i].text )
-                    end
-    logger.debug @ingredients
+    fetch_data = FetchRecipe.new(url)
+    fetch_data.cookpad
+    self.name = fetch_data.title
+    self.url = fetch_data.url
+    self.cooking_recipe = fetch_data.recipe
+    @ingredients = fetch_data.ingredients
   end
 end
