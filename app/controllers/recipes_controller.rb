@@ -9,7 +9,7 @@ class RecipesController < ApplicationController
 
   def new
     @recipe = current_user.recipes.new
-    @recipe.ingredients.new
+    @recipe.ingredients.build
   end
 
   def edit
@@ -45,7 +45,7 @@ class RecipesController < ApplicationController
   private
 
   def recipe_params
-    params.require(:recipe).permit(:user_id, :cooked, :name, :url, :cooking_recipe, :cooked_at)
+    params.require(:recipe).permit(:user_id, :cooked, :name, :url, :cooking_recipe, :cooked_at, ingredients_attributes:[ :id, :recipe_id, :name, :amount, :quantity, :unit_id ])
   end
 
   def set_recipe

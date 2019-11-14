@@ -1,14 +1,14 @@
 h1 レシピの編集
 
 .nav.justify-content-end
-  = link_to '一覧', recipes_path, class: 'nav-link'
+  = link_to 'レシピ一覧', recipes_path, class: 'nav-link'
 
 - if @recipe.errors.present?
   ul#error_explanation
     - @recipe.errors.full_message.each do |message|
       li= message
 
-= form_with model: @recipe, local: true do |f|
+= form_with model: @recipe, local: true, class: 'form-inline' do |f|
   .form-group
     = f.label :name
     = f.text_field :name, class: 'form-control'
@@ -21,6 +21,16 @@ h1 レシピの編集
   .form-group
     = f.label :cooked_at
     = f.date_field :cooked_at, class: 'form-control'
+  = f.fields_for :ingredients do |i|
+    .form-group
+      = i.label :name
+      = i.text_field :name, value: i.object.name, class: 'form-control'
+      = i.label :amount
+      = i.text_field :amount, value: i.object.amount, class: 'form-control'
+      = i.label :quantity
+      = i.text_field :quantity, class: 'form-control'
+      = i.label :unit_id
+      = i.select :unit_id, options_for_select( Ingredient.unit_ids ), class: 'form-control'
   br
   .form-check
     = f.label :cooked, class: 'form-check-label' do

@@ -41,9 +41,18 @@ ja:
         created_at: 登録日時
         updated_at: 更新日時 
       ingredient:
+        recipe_id: レシピID
         name: 材料名
         amount: 分量
         quantity: 分量
+        unit_id: 単位
+          piece: 個
+          g: g
+          mg: mg
+          ml: ml
+          table_spoon: 大さじ
+          tea_spoon: 小さじ
+          nip: 少々
   date:
     abbr_day_names:
     - 日
