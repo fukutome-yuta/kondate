@@ -46,13 +46,16 @@ ja:
         amount: 分量
         quantity: 分量
         unit_id: 単位
-          piece: 個
-          g: g
-          mg: mg
-          ml: ml
-          table_spoon: 大さじ
-          tea_spoon: 小さじ
-          nip: 少々
+  enums:
+    ingredient:
+      unit_id:
+        piece: 個
+        g: g
+        mg: mg
+        ml: ml
+        table_spoon: 大さじ
+        tea_spoon: 小さじ
+        nip: 少々
   date:
     abbr_day_names:
     - 日

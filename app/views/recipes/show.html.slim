@@ -22,12 +22,15 @@ table.table.table-hover
     tr
       th= Recipe.human_attribute_name(:cooked)
       td= @recipe.cooked ? '✓' : ''
+    tr
+      th= Ingredient.human_attribute_name(:name)
+      th= Ingredient.human_attribute_name(:amount)
+      th= Ingredient.human_attribute_name(:quantity)
     - @recipe.ingredients.each do |i|
       tr
-        th= Ingredient.human_attribute_name(:name)
         td= i.name
-        th= Ingredient.human_attribute_name(:amount)
         td= i.amount
+        td= i.quantity
 
 = link_to '編集', edit_recipe_path, class: 'btn btn-primary mr-3'
 = link_to '削除', @recipe, method: :delete, data: { confirm: "レシピ「#{@recipe.name}」を削除します。よろしいですか？"}, class: 'btn btn-danger'
