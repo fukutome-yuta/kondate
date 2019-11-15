@@ -1,5 +1,5 @@
 class Ingredient < ApplicationRecord
-  belongs_to :recipe, inverse_of: :ingredients, optional: true
+  belongs_to :recipe, optional: true
   before_validation :set_empty_name_amount
   before_validation :unit_conversion, on: [ :create, :update ]
   validates :unit_id, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 5 }

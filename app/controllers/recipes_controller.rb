@@ -17,10 +17,10 @@ class RecipesController < ApplicationController
 
   def create
     @recipe = current_user.recipes.new(recipe_params)
-    ingredient_params = params[:recipe][:ingredients_attributes].permit!.to_hash
-    @recipe.ingredients_attributes = ingredient_params.map do |key, value|
-        @recipe.ingredients.new( name: value['name'], amount: value['amount'], quantity: value['quantity'], unit_id: value['unit_id'].to_i )
-      end
+    # ingredient_params = params[:recipe][:ingredients_attributes].permit!.to_hash
+    # @recipe.ingredients_attributes = ingredient_params.map do |key, value|
+    #     @recipe.ingredients.new( name: value['name'], amount: value['amount'], quantity: value['quantity'], unit_id: value['unit_id'].to_i )
+    #   end
     
     if @recipe.save
        redirect_to @recipe, notice: "レシピ「#{@recipe.name}」を登録しました。"
@@ -49,8 +49,7 @@ class RecipesController < ApplicationController
   private
 
   def recipe_params
-    #params.require(:recipe).permit(:user_id, :cooked, :name, :url, :cooking_recipe, :cooked_at, ingredients_attributes: [ :recipe_id, :name, :amount, :quantity, :unit_id ])
-    params.require(:recipe).permit(:user_id, :cooked, :name, :url, :cooking_recipe, :cooked_at)
+    params.require(:recipe).permit( :cooked, :name, :url, :cooking_recipe, :cooked_at, ingredients_attributes: [ :name, :amount, :quantity, :unit_id ] )
   end
 
   def set_recipe

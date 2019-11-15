@@ -29,19 +29,21 @@ class MenusController < ApplicationController
   end
 
   def create
-    start_date = Date.parse(params[:start_date])
-    end_date = Date.parse(params[:end_date])
+    result = current_user.menus.new.list_create(params[:start_date], params[:end_date])
+    redirect_to result[:path], notice: result[:message]
+    # start_date = Date.parse(params[:start_date])
+    # end_date = Date.parse(params[:end_date])
 
-    Menu.transaction do
-      (start_date..end_date).each do |date|
-        menu = current_user.menus.new(schedule: date)
-        menu.save!
-      end
-    end
-      redirect_to menus_edit_url, notice: "献立表にメニューを追加してください。"
-    rescue => e
-      raise ActiveRecord::Rollback
-      redirect_to new_menu_url, notice: "献立表の作成に失敗しました。"
+    # Menu.transaction do
+    #   (start_date..end_date).each do |date|
+    #     menu = current_user.menus.new(schedule: date)
+    #     menu.save!
+    #   end
+    # end
+    #   redirect_to menus_edit_url, notice: "献立表にメニューを追加してください。"
+    # rescue => e
+    #   raise ActiveRecord::Rollback
+    #   redirect_to new_menu_url, notice: "献立表の作成に失敗しました。"
   end
 
   def update
