@@ -1,21 +1,35 @@
-- if recipe.errors.present?
-  ul#errors.full_messages.each do |message|
-    li= message
-
 = form_with model: recipe, local: true do |f|
-  .form-check
-    = f.label :, class: 'form-check-input' do
-      = f.check_box :cooked, class: 'form-check-input'
-  .form-group
-    = f.label :name
-    = f.text_field :name, class: 'form-control'
-  .form-group
-    = f.label :url
-    = f.text_field :url, class: 'form-control'
-  .form-group
-    = f.label :cooking_recipe
-    = f.text_area :cooking_recipe, row: 10, class: 'form-control', id: 'cooking_recipe'
-  .form-group
-    = f.label :cooked_at
-    = f.text_field :cooked_at, class: 'datepicker'
+  .form-group.row
+    = f.label :name, class: 'col-sm-1 col-form-label'
+    .col-sm-6
+      = f.text_field :name, value: recipe.name, class: 'form-control'
+  .form-group.row
+    = f.label :url, class: 'col-sm-1 col-form-label'
+    .col-sm-6
+      = f.text_field :url, value: recipe.url, class: 'form-control'
+  .form-group.row
+    = f.label :cooking_recipe, class: 'col-sm-1 col-form-label'
+    .col-sm-8
+      = f.text_area :cooking_recipe, value: recipe.cooking_recipe, rows: "10", class: 'form-control', id: 'cooking_recipe'
+  = f.fields_for :ingredients do |i|
+    .form-group.row
+      = i.label :name, class: 'col-form-label'
+      .col-sm-3
+        = i.text_field :name, value: i.object.name, class: 'form-control'
+      = i.label :amount, class: 'col-form-label'
+      .col-sm-2
+        = i.text_field :amount, value: i.object.amount, class: 'form-control'
+      = i.label :quantity, class: 'col-form-label'
+      .col-sm-2
+        = i.text_field :quantity, class: 'form-control'
+      = i.label :unit_id, class: 'col-form-label'
+      .col-sm-2
+        = i.select :unit_id, Ingredient.unit_ids.map {|key, value| [I18n.t("enums.ingredient.unit_id.#{key}"), value]}
+  - if recipe.id.present?
+    br
+    .form-check
+      = f.label :cooked, class: 'form-check-label' do
+        = f.check_box :cooked, class: 'form-check-input'
+        | 調理済み
+    br
   = f.submit nil, class: 'btn btn-primary'

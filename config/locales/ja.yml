@@ -44,8 +44,13 @@ ja:
         recipe_id: レシピID
         name: 材料名
         amount: 分量
-        quantity: 分量
+        quantity: 分量(買い物用)
         unit_id: 単位
+      shopping_list:
+        ingredient: 材料名
+        quantity: 必要量
+        unit: 単位
+        bought: 買い物済み
   enums:
     ingredient:
       unit_id:

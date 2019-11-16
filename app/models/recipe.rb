@@ -1,8 +1,8 @@
 class Recipe < ApplicationRecord
   attr_accessor :ingredients_attributes
   belongs_to :user
+  belongs_to :menu, optional: true
   has_many :ingredients, dependent: :destroy, inverse_of: :recipe
-  has_one :menu
   accepts_nested_attributes_for :ingredients, allow_destroy: true
 
   validates :name, presence: true

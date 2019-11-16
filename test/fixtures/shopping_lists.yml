@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  string: 
+  float: 
+  string: 
+  boolean: 
+
+two:
+  user: two
+  string: 
+  float: 
+  string: 
+  boolean: 

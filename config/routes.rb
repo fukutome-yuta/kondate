@@ -17,5 +17,10 @@ Rails.application.routes.draw do
   get '/menus/complete', to: 'menus#complete'
   delete '/menus/destroy', to: 'menus#destroy'
 
+  get '/shopping_lists/show', to: 'shopping_lists#show'
+  get '/shopping_lists/update', to: 'shopping_lists#update'
+  post '/shopping_lists/create', to: 'shopping_lists#create'
+  delete '/shopping_lists/destroy', to: 'shopping_lists#destroy'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

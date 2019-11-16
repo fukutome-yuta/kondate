@@ -5,9 +5,6 @@ h1 レシピの詳細
 table.table.table-hover
   tbody
     tr
-      th= Recipe.human_attribute_name(:id)
-      td= @recipe.id
-    tr
       th= Recipe.human_attribute_name(:name)
       td= @recipe.name
     tr
@@ -22,15 +19,15 @@ table.table.table-hover
     tr
       th= Recipe.human_attribute_name(:cooked)
       td= @recipe.cooked ? '✓' : ''
+table.table.table-hover
+  tbody
     tr
       th= Ingredient.human_attribute_name(:name)
       th= Ingredient.human_attribute_name(:amount)
-      th= Ingredient.human_attribute_name(:quantity)
     - @recipe.ingredients.each do |i|
       tr
         td= i.name
         td= i.amount
-        td= i.quantity
 
 = link_to '編集', edit_recipe_path, class: 'btn btn-primary mr-3'
 = link_to '削除', @recipe, method: :delete, data: { confirm: "レシピ「#{@recipe.name}」を削除します。よろしいですか？"}, class: 'btn btn-danger'

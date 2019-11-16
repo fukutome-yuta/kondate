@@ -8,7 +8,8 @@ class MenusController < ApplicationController
       unless current_user.list_completed?
         redirect_to menus_edit_path
       end
-    end    
+    end
+    @recipe_ids = @menus.pluck(:recipe_id)
   end
 
   def select
@@ -29,28 +30,12 @@ class MenusController < ApplicationController
   end
 
   def create
-    result = current_user.menus.new.list_create(params[:start_date], params[:end_date])
+    result = ExtendMenu.new.list_create(current_user, params[:start_date], params[:end_date])
     redirect_to result[:path], notice: result[:message]
-    # start_date = Date.parse(params[:start_date])
-    # end_date = Date.parse(params[:end_date])
-
-    # Menu.transaction do
-    #   (start_date..end_date).each do |date|
-    #     menu = current_user.menus.new(schedule: date)
-    #     menu.save!
-    #   end
-    # end
-    #   redirect_to menus_edit_url, notice: "献立表にメニューを追加してください。"
-    # rescue => e
-    #   raise ActiveRecord::Rollback
-    #   redirect_to new_menu_url, notice: "献立表の作成に失敗しました。"
   end
 
   def update
-    before = current_user.menus.find(params[:before_id])
-    after = current_user.recipes.find(params[:after_id])
-    message = before.name.present? ? "#{before.schedule}のメニューを変更しました。" : "献立表に「#{after.name}」を追加しました。"
-    before.update!(recipe_id: after.id, name: after.name, url: after.url)
+    message = ExtendMenu.new.list_update(current_user, params[:before_id], params[:after_id])
     redirect_to menus_url, notice: message
   end
 

@@ -17,4 +17,5 @@ table.table.table-hover
         td= check_box menu.cooked, { checked: menu.cooked }
 
 = link_to '編集', menus_edit_path, class: 'btn btn-primary'
-= link_to '削除', menus_destroy_path(@manus), method: :delete, remote: true, data: { confirm: '献立表を削除します。よろしいですか？' }, class: 'btn btn-danger'
+= link_to '削除', menus_destroy_path(@menus), method: :delete, remote: true, data: { confirm: '献立表を削除します。よろしいですか？' }, class: 'btn btn-danger'
+= link_to '買い物リスト作成', shopping_lists_create_path( { recipe_ids: @recipe_ids } ), method: :post, class: 'btn btn-outline-info'
