@@ -3,12 +3,13 @@ h1 献立表作成
 p 作成したい期間を選択してください。
 
 = form_with url: menus_path, local: true do |f|
-  .form-inline.align-items-center
+  .form-group.row
+    = f.label '開始日'
     .col-auto
-      = f.label '開始日'
       = f.date_field :start_date, class: 'form-control'
     .col-auto
       = f.label '終了日'
+    .col-auto
       = f.date_field :end_date, class: 'form-control'
     .col-auto
       = f.submit '作成する', class: 'btn btn-primary'

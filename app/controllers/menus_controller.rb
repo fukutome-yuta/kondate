@@ -47,6 +47,8 @@ class MenusController < ApplicationController
   def destroy
     @menus = current_user.menus.all
     @menus.each { |menu| menu.destroy }
+    lists = current_user.shopping_lists.all
+    lists.each { |list| list.destroy } if lists.present?
     current_user.update!(list_completed: false)
     redirect_to new_menu_url, notice: "献立表を削除しました。"
   end

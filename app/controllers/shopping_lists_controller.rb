@@ -1,6 +1,6 @@
 class ShoppingListsController < ApplicationController
   def show
-    @lists = current_user.shopping_lists.recent
+    @lists = current_user.shopping_lists.all
   end
 
   def create
@@ -15,6 +15,6 @@ class ShoppingListsController < ApplicationController
   def destroy
     @lists = current_user.shopping_lists.all
     @lists.each { |list| list.destroy }
-    redirect_to root_path, notice: '買い物リストを削除しました。'
+    redirect_to menus_url, notice: '買い物リストを削除しました。'
   end
 end

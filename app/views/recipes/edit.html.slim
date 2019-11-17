@@ -17,4 +17,37 @@ p
         = f.submit '取込', name: 'edit', class: 'btn btn-primary'
 br
 br
-= render partial: 'form', locals: { recipe: @recipe }
+= form_with model: @recipe, local: true do |f|
+  .form-group.row
+    = f.label :name, class: 'col-sm-1 col-form-label'
+    .col-sm-6
+      = f.text_field :name, value: @recipe.name, class: 'form-control'
+  .form-group.row
+    = f.label :url, class: 'col-sm-1 col-form-label'
+    .col-sm-6
+      = f.text_field :url, value: @recipe.url, class: 'form-control'
+  .form-group.row
+    = f.label :cooking_recipe, class: 'col-sm-1 col-form-label'
+    .col-sm-8
+      = f.text_area :cooking_recipe, value: @recipe.cooking_recipe, rows: "10", class: 'form-control', id: 'cooking_recipe'
+  = f.fields_for :ingredients do |i|
+    .form-group.row
+      = i.label :name, class: 'col-form-label'
+      .col-sm-3
+        = i.text_field :name, value: i.object.name, class: 'form-control'
+      = i.label :amount, class: 'col-form-label'
+      .col-sm-2
+        = i.text_field :amount, value: i.object.amount, class: 'form-control'
+      = i.label :quantity, class: 'col-form-label'
+      .col-sm-2
+        = i.text_field :quantity, class: 'form-control'
+      = i.label :unit_id, class: 'col-form-label'
+      .col-sm-1
+        = i.select :unit_id, Ingredient.unit_ids.map {|key, value| [I18n.t("enums.ingredient.unit_id.#{key}"), value]}, selected: Ingredient.unit_ids[i.object.unit_id]
+  br
+  .form-check
+    = f.label :cooked, class: 'form-check-label' do
+      = f.check_box :cooked, class: 'form-check-input'
+      | 調理済み
+  br
+  = f.submit nil, class: 'btn btn-primary'
