@@ -4,8 +4,8 @@ class ShoppingListsController < ApplicationController
   end
 
   def create
-    @lists = ShoppingList.new.list_create(current_user, params[:recipe_ids])
-    redirect_to shopping_lists_show_path, notice: '買い物リストを作成しました。'
+    result = ShoppingList.new.list_create(current_user, params[:recipe_ids])
+    redirect_to result[:path], notice: result[:message]
   end
 
   def update
