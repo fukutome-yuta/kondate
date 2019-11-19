@@ -14,8 +14,7 @@ table.table.table-hover
         td= list.ingredient
         td= list.quantity
         td= list.unit
-        td= check_box list.bought, { checked: list.bought }
-= link_to '更新', shopping_lists_update_path, class: 'btn btn-primary mr-3'
+        td= check_box 'list_bought', list.bought, { checked: list.bought }, class: 'list_bought'
 = link_to '削除', shopping_lists_destroy_path, method: :delete, remote: true, data: { confirm: '買い物リストを削除します。よろしいですか？'}, class: 'btn btn-danger'
 
 

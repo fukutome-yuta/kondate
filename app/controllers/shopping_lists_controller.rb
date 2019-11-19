@@ -9,10 +9,10 @@ class ShoppingListsController < ApplicationController
   end
 
   def update
-    render nothing: true
     list = current_user.shopping_lists.find(params[:id])
     list.bought = !list.bought
     list.save
+    head :no_content
   end
 
   def destroy

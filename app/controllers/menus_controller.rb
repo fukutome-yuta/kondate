@@ -44,6 +44,21 @@ class MenusController < ApplicationController
     redirect_to menus_url, notice: "献立の作成が完了しました。"
   end
 
+  def change_cooked
+    menu = current_user.menus.find(params[:menu_id])
+    recipe = current_user.recipes.find(params[:recipe_id])
+    cooked_at = params[:cooked_at]
+
+    menu.cooked = !menu.cooked
+    if menu.cooked
+      recipe.update!(cooked: menu.cooked, cooked_at: cooked_at)
+    else
+      recipe.update!(cooked: menu.cooked)
+    end
+    menu.save
+    head :no_content
+  end
+
   def destroy
     @menus = current_user.menus.all
     @menus.each { |menu| menu.destroy }

@@ -1,20 +1,27 @@
-
-//turbolinkが適用されていた場合はwindow.onloadではなくこれでページ読み込み時に処理が実行される
 document.addEventListener('turbolinks:load', function() {
-  $('input[type=checkbox]').click(function() {
-    let name = $(this).attr('name');
+  $('.list_bought').each(function(index, element) {
+    let tr = $(element).parents('tr');
+    let checked =  $(element).prop('checked');
+    changeBgColor(tr, checked);
+  });
+  
+  $('.list_bought').click(function() {
     let tr = $(this).parents('tr');
-    let td = tr.children('td');
-
+    let checked =  $(this).prop('checked') 
     $.ajax({
       url: '/shopping_lists/' + $(this).parents('tr').attr('id'),
-      type: 'PUT',
-      success: function (data) {sortTable(td);}
+      type: 'PATCH',
+      success: function () {
+        changeBgColor(tr, checked);
+      }
     });
-
-    function sortTable(td){
-      $('tbody').append('<tr><td>' + td[0].innerText + '</tr></td>');
-      td.remove();
-    }
   });
+
+  function changeBgColor(tr, checked){
+    if (checked){
+      tr.css('background-color','gray');
+    }else{
+      tr.css('background-color','white');
+    }
+  }
 });

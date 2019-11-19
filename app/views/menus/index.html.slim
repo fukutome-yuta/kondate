@@ -5,16 +5,19 @@ table.table.table-hover
   thead.thead-default
     tr
       th= Menu.human_attribute_name(:schedule)
+      th= Menu.human_attribute_name(:cooked)
       th= Menu.human_attribute_name(:name)
       th= Menu.human_attribute_name(:url)
-      th= Menu.human_attribute_name(:cooked)
   tbody
     - @menus.each do |menu|
-      tr id="menu-#{menu.id}"
-        td= menu.schedule
+      tr id="#{menu.id}"
+        input id="#{menu.recipe_id}" type="hidden" class="recipe_id"
+        td class="schedule"
+          = menu.schedule
+        td class="menu_cooked"
+          = check_box 'menu_cooked', menu.cooked, { checked: menu.cooked }
         td= link_to menu.name, recipe_path(menu.recipe_id)
         td= link_to menu.url, menu.url
-        td= check_box menu.cooked, { checked: menu.cooked }
 
 = link_to '編集', menus_edit_path, class: 'btn btn-primary'
 = link_to '削除', menus_destroy_path(@menus), method: :delete, remote: true, data: { confirm: '献立表を削除します。よろしいですか？' }, class: 'btn btn-danger'
