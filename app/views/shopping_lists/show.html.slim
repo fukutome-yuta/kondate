@@ -10,7 +10,7 @@ table.table.table-hover
       th= ShoppingList.human_attribute_name(:bought)
   tbody
     - @lists.each do |list|
-      tr
+      tr id="#{list.id}"
         td= list.ingredient
         td= list.quantity
         td= list.unit
