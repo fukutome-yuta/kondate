@@ -19,31 +19,38 @@ br
 br
 = form_with model: @recipe, local: true do |f|
   .form-group.row
-    = f.label :name, class: 'col-sm-1 col-form-label'
+    .col-sm-1
+      = f.label :name, class: 'col-form-label'
     .col-sm-6
       = f.text_field :name, value: @recipe.name, class: 'form-control'
   .form-group.row
-    = f.label :url, class: 'col-sm-1 col-form-label'
+    .col-sm-1
+      = f.label :url, class: 'col-form-label'
     .col-sm-6
       = f.text_field :url, value: @recipe.url, class: 'form-control'
   .form-group.row
-    = f.label :cooking_recipe, class: 'col-sm-1 col-form-label'
+    .col-sm-1
+      = f.label :cooking_recipe, class: 'col-form-label'
     .col-sm-8
       = f.text_area :cooking_recipe, value: @recipe.cooking_recipe, rows: "10", class: 'form-control', id: 'cooking_recipe'
-  = f.fields_for :ingredients do |i|
-    .form-group.row
-      = i.label :name, class: 'col-form-label'
-      .col-sm-3
-        = i.text_field :name, value: i.object.name, class: 'form-control'
-      = i.label :amount, class: 'col-form-label'
-      .col-sm-2
-        = i.text_field :amount, value: i.object.amount, class: 'form-control'
-      = i.label :quantity, class: 'col-form-label'
-      .col-sm-2
-        = i.text_field :quantity, class: 'form-control'
-      = i.label :unit_id, class: 'col-form-label'
-      .col-sm-1
-        = i.select :unit_id, Ingredient.unit_ids.map {|key, value| [I18n.t("enums.ingredient.unit_id.#{key}"), value]}, selected: Ingredient.unit_ids[i.object.unit_id]
+  br
+    table.table
+        thead
+          tr.form-group.row
+            th.col-sm-2= Ingredient.human_attribute_name(:name)
+            th.col-sm-2= Ingredient.human_attribute_name(:amount)
+            th.col-sm-2= Ingredient.human_attribute_name(:quantity)
+            th.col-sm-2= Ingredient.human_attribute_name(:unit_id)
+            / th.col-sm-1
+        tbody
+          = f.fields_for :ingredients do |i|
+            tr.form-group.row
+              td.col-sm-2= i.text_field :name, value: i.object.name, class: 'form-control'
+              td.col-sm-2= i.text_field :amount, value: i.object.amount, class: 'form-control'
+              td.col-sm-2= i.text_field :quantity, class: 'form-control'
+              td.col-sm-2= i.select :unit_id, Ingredient.unit_ids.map {|key, value| [I18n.t("enums.ingredient.unit_id.#{key}"), value]}
+              / td.col-sm-1
+              /   button.remove -
   br
   .form-check
     = f.label :cooked, class: 'form-check-label' do
@@ -51,3 +58,4 @@ br
       | 調理済み
   br
   = f.submit nil, class: 'btn btn-primary'
+/ button.btn.btn-info id="addRow" 行追加

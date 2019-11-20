@@ -1,8 +1,10 @@
 h1 レシピ一覧
 
-= link_to '新規登録', new_recipe_path, class: 'btn btn-primary'
-- if @completed
-  = link_to 'リセット', reset_recipes_path({completed: @completed}), method: :post, class: 'btn btn-info'
+tr
+  - if @completed
+    p レシピリストをコンプリートしました。リストをリセットしてください。
+    = link_to 'リセット', recipes_reset_path({completed: @completed}), method: :post, class: 'btn btn-info'
+  = link_to '新規登録', new_recipe_path, class: 'btn btn-primary'
 
 .mb-3
 table.table.table-hover

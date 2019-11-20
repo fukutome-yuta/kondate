@@ -39,11 +39,12 @@ class MenusController < ApplicationController
   end
 
   def ready
-    if params([:readied]) == true
+    readied = params[:readied]
+    if readied
       current_user.update!(list_readied: true)
-      redirect_to menus_url, notice: "献立表を作成しました。"
+      redirect_to menus_path, notice: "献立表を作成しました。" and return
     end
-    redirect_to menus_path
+    redirect_to menus_edit_path, notice: "献立表の作成に失敗しました。" and return
   end
 
   def complete

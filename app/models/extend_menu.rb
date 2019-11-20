@@ -38,10 +38,15 @@ class ExtendMenu
 
     Recipe.transaction do
       menus.each do |menu|
-        recipe = user.recipes.find(menu.recipe_id])
+        recipe = user.recipes.find(menu.recipe_id)
         recipe.update!(cooked: menu.cooked, cooked_at: menu.schedule)
       end
     end   
+      menus = user.menus.all
+      menus.each { |menu| menu.destroy }
+      lists = user.shopping_lists.all
+      lists.each { |list| list.destroy } if lists.present?
+      user.update!(list_readied: false)  
       @result[:path] = '/menus/new'
       @result[:message] = "レシピを更新しました。"
     rescue => e

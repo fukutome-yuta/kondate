@@ -5,6 +5,9 @@ h1 レシピの詳細
 table.table.table-hover
   tbody
     tr
+      th.col-sm-2= Recipe.human_attribute_name(:cooked)
+      td.col-sm-6= @recipe.cooked ? '✓' : ''
+    tr
       th= Recipe.human_attribute_name(:name)
       td= @recipe.name
     tr
@@ -16,14 +19,12 @@ table.table.table-hover
     tr
       th= Recipe.human_attribute_name(:cooked_at)
       td= @recipe.cooked_at
-    tr
-      th= Recipe.human_attribute_name(:cooked)
-      td= @recipe.cooked ? '✓' : ''
+br
 table.table.table-hover
   tbody
     tr
-      th= Ingredient.human_attribute_name(:name)
-      th= Ingredient.human_attribute_name(:amount)
+      th.col-sm-2= Ingredient.human_attribute_name(:name)
+      th.col-sm-6= Ingredient.human_attribute_name(:amount)
     - @recipe.ingredients.each do |i|
       tr
         td= i.name

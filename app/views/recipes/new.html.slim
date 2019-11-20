@@ -4,13 +4,15 @@ h1 レシピの新規登録
   = link_to 'レシピ一覧', recipes_path, class: 'nav-link'
 
 - if @recipe.errors.present?
-  ul#errors.full_messages.each do |message|
-    li= message
+  ul#error_explanation
+    - @recipe.errors.full_messages.each do |message|
+      li= message
 p
   = form_with url: recipes_fetch_path, local: true do |f|
     p 取り込みたいレシピのURLを入力してください
     .form-group.row
-      = f.label '取込URL', class: 'col-sm-1 col-form-label'
+      .col-sm-1
+        = f.label '取込URL', class: 'col-form-label'
       .col-sm-5
         = f.text_field :fetch_url, class: 'form-control'
       .col-sm-2
@@ -19,36 +21,38 @@ br
 br
 = form_with model: @recipe, local: true do |f|
   .form-group.row
-    = f.label :name, class: 'col-sm-1 col-form-label'
+    .col-sm-1
+      = f.label :name, class: 'col-form-label'
     .col-sm-6
       = f.text_field :name, value: @recipe.name, class: 'form-control'
   .form-group.row
-    = f.label :url, class: 'col-sm-1 col-form-label'
+    .col-sm-1
+      = f.label :url, class: 'col-form-label'
     .col-sm-6
       = f.text_field :url, value: @recipe.url, class: 'form-control'
   .form-group.row
-    = f.label :cooking_recipe, class: 'col-sm-1 col-form-label'
+    .col-sm-1
+      = f.label :cooking_recipe, class: 'col-form-label'
     .col-sm-8
       = f.text_area :cooking_recipe, value: @recipe.cooking_recipe, rows: "10", class: 'form-control', id: 'cooking_recipe'
-  table.table
-    thead.thead-default
-      tr
-        th= Ingredient.human_attribute_name(:name)
-        th= Ingredient.human_attribute_name(:amount)
-        th= Ingredient.human_attribute_name(:quantity)
-        th= Ingredient.human_attribute_name(:unit_id)
-        th
-    tbody
-      = f.fields_for :ingredients do |i|
+  br
+    table.table
+      thead
         tr.form-group.row
-          td= i.text_field :name, value: i.object.name, class: 'form-control'
-          td= i.text_field :amount, value: i.object.amount, class: 'form-control'
-          td= i.text_field :quantity, class: 'form-control'
-          td= i.select :unit_id, Ingredient.unit_ids.map {|key, value| [I18n.t("enums.ingredient.unit_id.#{key}"), value]}
-          td
-            button.remove
-              -
+          th.col-sm-2= Ingredient.human_attribute_name(:name)
+          th.col-sm-2= Ingredient.human_attribute_name(:amount)
+          th.col-sm-2= Ingredient.human_attribute_name(:quantity)
+          th.col-sm-2= Ingredient.human_attribute_name(:unit_id)
+          / th.col-sm-1
+      tbody
+        = f.fields_for :ingredients do |i|
+          tr.form-group.row
+            td.col-sm-2= i.text_field :name, value: i.object.name, class: 'form-control'
+            td.col-sm-2= i.text_field :amount, value: i.object.amount, class: 'form-control'
+            td.col-sm-2= i.text_field :quantity, class: 'form-control'
+            td.col-sm-2= i.select :unit_id, Ingredient.unit_ids.map {|key, value| [I18n.t("enums.ingredient.unit_id.#{key}"), value]}
+            / td.col-sm-1
+            /   button.remove -
   br
   = f.submit nil, class: 'btn btn-primary'
-  button.btn.btn-info id="addRow"
-    追加
+/ button.btn.btn-info id="addRow" 行追加

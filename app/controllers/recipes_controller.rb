@@ -2,9 +2,8 @@ class RecipesController < ApplicationController
   before_action :set_recipe, only: [:show, :edit, :update, :destroy]
   def index
     @recipes = current_user.recipes.recent
-    recipe_list = current_user.recipes.complete
-    @completed = recipe_list.completed == 0 ? true : false
-    redirect_to recipes_path, notice: "レシピリストをコンプリートしました。\nリストをリセットしてください。" if @completed
+    @completed = Recipe.new.completed(current_user)
+    puts @completed
   end
 
   def show
