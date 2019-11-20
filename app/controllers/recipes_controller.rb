@@ -2,6 +2,9 @@ class RecipesController < ApplicationController
   before_action :set_recipe, only: [:show, :edit, :update, :destroy]
   def index
     @recipes = current_user.recipes.recent
+    recipe_list = current_user.recipes.complete
+    @completed = recipe_list.completed == 0 ? true : false
+    redirect_to recipes_path, notice: "レシピリストをコンプリートしました。\nリストをリセットしてください。" if @completed
   end
 
   def show
@@ -40,15 +43,24 @@ class RecipesController < ApplicationController
     end
   end
 
+  def reset
+    completed = params[:completed]
+    if completed
+      recipes = current_user.recipes.all
+      recipes.each { |recipe| recipe.update!(cooked: false) }
+      redirect_to recipes_path, notice: "レシピリストをリセットしました。"
+    end
+  end
+
   def update
     recipe = current_user.recipes.find(params[:id])
     recipe.update!(recipe_params)
-    redirect_to recipe_url, notice: "レシピ「#{recipe.name}」を更新しました。"
+    redirect_to recipes_path, notice: "レシピ「#{recipe.name}」を更新しました。"
   end
 
   def destroy
     @recipe.destroy
-    redirect_to recipes_url, notice: "レシピ「#{@recipe.name}」を削除しました。"
+    redirect_to recipes_path, notice: "レシピ「#{@recipe.name}」を削除しました。"
   end
 
   private

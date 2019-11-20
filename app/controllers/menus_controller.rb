@@ -5,9 +5,7 @@ class MenusController < ApplicationController
     unless @menus.present?
       redirect_to new_menu_url, notice: "献立表を作成してください。"
     else
-      unless current_user.list_completed?
-        redirect_to menus_edit_path
-      end
+      redirect_to menus_edit_path unless current_user.list_readied
     end
     @recipe_ids = @menus.pluck(:recipe_id)
   end
@@ -15,17 +13,18 @@ class MenusController < ApplicationController
   def select
     @recipes = current_user.recipes.recent
     @menu = current_user.menus.find(params[:id])
+    redirect_to menus_edit_path unless @menu.present?
   end
 
   def new
   end
 
   def edit
-    current_user.update!(list_completed: false)
+    current_user.update!(list_readied: false) if current_user.list_readied
     @menus = current_user.menus.recent
     @menus.each do |m|
-      @completed = m.recipe_id.present?
-      break unless @completed
+      @readied = m.recipe_id.present?
+      break unless @readied
     end
   end
 
@@ -36,35 +35,37 @@ class MenusController < ApplicationController
 
   def update
     message = ExtendMenu.new.list_update(current_user, params[:before_id], params[:after_id])
-    redirect_to menus_url, notice: message
+    redirect_to menus_path, notice: message
+  end
+
+  def ready
+    if params([:readied]) == true
+      current_user.update!(list_readied: true)
+      redirect_to menus_url, notice: "献立表を作成しました。"
+    end
+    redirect_to menus_path
   end
 
   def complete
-    current_user.update!(list_completed: true)
-    redirect_to menus_url, notice: "献立の作成が完了しました。"
+    if current_user.list_readied
+      result = ExtendMenu.new.list_complete(current_user)
+      redirect_to result[:path], notice: result[:message]
+    end
   end
 
   def change_cooked
     menu = current_user.menus.find(params[:menu_id])
-    recipe = current_user.recipes.find(params[:recipe_id])
-    cooked_at = params[:cooked_at]
-
     menu.cooked = !menu.cooked
-    if menu.cooked
-      recipe.update!(cooked: menu.cooked, cooked_at: cooked_at)
-    else
-      recipe.update!(cooked: menu.cooked)
-    end
     menu.save
     head :no_content
   end
 
   def destroy
-    @menus = current_user.menus.all
-    @menus.each { |menu| menu.destroy }
+    menus = current_user.menus.all
+    menus.each { |menu| menu.destroy }
     lists = current_user.shopping_lists.all
     lists.each { |list| list.destroy } if lists.present?
-    current_user.update!(list_completed: false)
+    current_user.update!(list_readied: false)
     redirect_to new_menu_url, notice: "献立表を削除しました。"
   end
 

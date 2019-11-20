@@ -20,5 +20,5 @@ table.table.table-hover
           = link_to edit_btn, select_path(menu), class: btn_class
 
 - if @completed
-  = link_to '完成', menus_complete_path, data: { confirm: '献立表の編集は完了でよろしいですか？' }, class: 'btn btn-success'
-= link_to '削除', menus_destroy_path(@manus), method: :delete, remote: true, data: { confirm: '献立表を削除します。よろしいですか？' }, class: 'btn btn-danger'
+  = link_to '完成', menus_ready_path({ readied: @readied }), method: :post, data: { confirm: '献立表の編集は完了でよろしいですか？' }, class: 'btn btn-success'
+= link_to '削除', menus_destroy_path, method: :delete, remote: true, data: { confirm: '献立表を削除します。よろしいですか？' }, class: 'btn btn-danger'

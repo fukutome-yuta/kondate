@@ -9,7 +9,7 @@ document.addEventListener('turbolinks:load', function() {
     let tr = $(this).parents('tr');
     let checked =  $(this).prop('checked') 
     $.ajax({
-      url: '/shopping_lists/' + $(this).parents('tr').attr('id'),
+      url: '/shopping_lists/' + tr.attr('id'),
       type: 'PATCH',
       success: function () {
         changeBgColor(tr, checked);

@@ -8,6 +8,7 @@ class Recipe < ApplicationRecord
   validates :name, presence: true
 
   scope :recent, -> { order(cooked: :asc) }
+  scope :complete, -> { select("SUM(CASE recipe.cooked WHEN true THEN 0 ELSE 1 END) AS completed") }
 
   def fetch(url)
     fetch_data = FetchRecipe.new(url)

@@ -4,7 +4,7 @@ class ShoppingList < ApplicationRecord
   scope :recent, -> { order(bought: :asc) }
 
   def list_create(user, recipe_ids)
-    lists = Ingredient.select("ingredients.name, sum(ingredients.quantity) as sum_quantity, ingredients.conversion_unit").where("recipe_id IN (?)" ,recipe_ids).group(:name, :conversion_unit)
+    lists = Ingredient.select("ingredients.name, SUM(ingredients.quantity) AS sum_quantity, ingredients.conversion_unit").where("recipe_id IN (?)" ,recipe_ids).group(:name, :conversion_unit)
 
     result = {}
 

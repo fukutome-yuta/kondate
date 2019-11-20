@@ -10,12 +10,14 @@ Rails.application.routes.draw do
 
   resources :recipes
   post '/recipes/fetch', to: 'recipes#fetch'
+  post '/recipes/reset', to: 'recipes#reset'
 
   resources :menus, only: [:index, :new, :create]
   get '/menus/edit', to: 'menus#edit'
   get '/menus/select/:id', to: 'menus#select', as: 'select'
   post '/menus/update', to: 'menus#update'
   post '/menus/change_cooked', to: 'menus#change_cooked'
+  post '/menus/ready', to: 'menus#ready'
   get '/menus/complete', to: 'menus#complete'
   delete '/menus/destroy', to: 'menus#destroy'
 

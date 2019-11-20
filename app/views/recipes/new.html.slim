@@ -30,19 +30,25 @@ br
     = f.label :cooking_recipe, class: 'col-sm-1 col-form-label'
     .col-sm-8
       = f.text_area :cooking_recipe, value: @recipe.cooking_recipe, rows: "10", class: 'form-control', id: 'cooking_recipe'
-  = f.fields_for :ingredients do |i|
-    .form-group.row
-      = i.label :name, class: 'col-form-label'
-      .col-sm-3
-        = i.text_field :name, value: i.object.name, class: 'form-control'
-      = i.label :amount, class: 'col-form-label'
-      .col-sm-2
-        = i.text_field :amount, value: i.object.amount, class: 'form-control'
-      = i.label :quantity, class: 'col-form-label'
-      .col-sm-2
-        = i.text_field :quantity, class: 'form-control'
-      = i.label :unit_id, class: 'col-form-label'
-      .col-sm-2
-        = i.select :unit_id, Ingredient.unit_ids.map {|key, value| [I18n.t("enums.ingredient.unit_id.#{key}"), value]}
-    br
+  table.table
+    thead.thead-default
+      tr
+        th= Ingredient.human_attribute_name(:name)
+        th= Ingredient.human_attribute_name(:amount)
+        th= Ingredient.human_attribute_name(:quantity)
+        th= Ingredient.human_attribute_name(:unit_id)
+        th
+    tbody
+      = f.fields_for :ingredients do |i|
+        tr.form-group.row
+          td= i.text_field :name, value: i.object.name, class: 'form-control'
+          td= i.text_field :amount, value: i.object.amount, class: 'form-control'
+          td= i.text_field :quantity, class: 'form-control'
+          td= i.select :unit_id, Ingredient.unit_ids.map {|key, value| [I18n.t("enums.ingredient.unit_id.#{key}"), value]}
+          td
+            button.remove
+              -
+  br
   = f.submit nil, class: 'btn btn-primary'
+  button.btn.btn-info id="addRow"
+    追加

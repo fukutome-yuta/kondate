@@ -1,6 +1,7 @@
 class ShoppingListsController < ApplicationController
   def show
     @lists = current_user.shopping_lists.all
+    redirect_to menus_path, notice: '買い物リストがありません。' unless @lists.present?
   end
 
   def create
@@ -18,6 +19,6 @@ class ShoppingListsController < ApplicationController
   def destroy
     @lists = current_user.shopping_lists.all
     @lists.each { |list| list.destroy }
-    redirect_to menus_url, notice: '買い物リストを削除しました。'
+    redirect_to menus_path, notice: '買い物リストを削除しました。'
   end
 end
