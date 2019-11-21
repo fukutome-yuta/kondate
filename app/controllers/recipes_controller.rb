@@ -3,7 +3,6 @@ class RecipesController < ApplicationController
   def index
     @recipes = current_user.recipes.recent
     @completed = Recipe.new.completed(current_user)
-    puts @completed
   end
 
   def show
