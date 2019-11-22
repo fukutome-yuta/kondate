@@ -5,8 +5,8 @@ h1 レシピの詳細
 table.table.table-hover
   tbody
     tr
-      th.col-sm-2= Recipe.human_attribute_name(:cooked)
-      td.col-sm-6= @recipe.cooked ? '✓' : ''
+      th.col-sm-1= Recipe.human_attribute_name(:cooked)
+      td.col-sm-3= @recipe.cooked ? '✓' : ''
     tr
       th= Recipe.human_attribute_name(:name)
       td= @recipe.name
@@ -18,13 +18,13 @@ table.table.table-hover
       td= simple_format(h(@recipe.cooking_recipe), {}, sanitize: false, wrapper_tag: "div")
     tr
       th= Recipe.human_attribute_name(:cooked_at)
-      td= @recipe.cooked_at
+      td= @recipe.cooked_at      
 br
 table.table.table-hover
   tbody
     tr
-      th.col-sm-2= Ingredient.human_attribute_name(:name)
-      th.col-sm-6= Ingredient.human_attribute_name(:amount)
+      th.col-sm-1= Ingredient.human_attribute_name(:name)
+      th.col-sm-3= Ingredient.human_attribute_name(:amount) + @recipe.how_many
     - @recipe.ingredients.each do |i|
       tr
         td= i.name

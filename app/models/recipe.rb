@@ -24,8 +24,9 @@ class Recipe < ApplicationRecord
     fetch_data = FetchRecipe.new(url)
     fetch_data.cookpad
     self.name = fetch_data.title
+    self.how_many = fetch_data.how_many
     self.url = fetch_data.url
     self.cooking_recipe = fetch_data.recipe
-    self.ingredients_attributes = fetch_data.names.length.times.map { |i| self.ingredients.new( name: fetch_data.names[i], amount: fetch_data.quantitys[i] ) }
+    self.ingredients_attributes = fetch_data.names.length.times.map { |i| self.ingredients.new( name: fetch_data.names[i], amount: fetch_data.quantitys[i] , quantity: fetch_data.quantitys[i][/\d{1,4}/]) }
   end
 end

@@ -7,16 +7,16 @@ h1 レシピの新規登録
   ul#error_explanation
     - @recipe.errors.full_messages.each do |message|
       li= message
-p
-  = form_with url: recipes_fetch_path, local: true do |f|
-    p 取り込みたいレシピのURLを入力してください
-    .form-group.row
-      .col-sm-1
-        = f.label '取込URL', class: 'col-form-label'
-      .col-sm-5
-        = f.text_field :fetch_url, class: 'form-control'
-      .col-sm-2
-        = f.submit '取込', name: 'new', class: 'btn btn-primary'
+
+= form_with url: recipes_fetch_path, local: true do |f|
+  p 取り込みたいレシピのURLを入力してください
+  .form-group.row
+    .col-sm-1
+      = f.label '取込URL', class: 'col-form-label'
+    .col-sm-5
+      = f.text_field :fetch_url, class: 'form-control'
+    .col-sm-2
+      = f.submit '取込', name: 'new', class: 'btn btn-primary'
 br
 br
 = form_with model: @recipe, local: true do |f|
@@ -32,9 +32,18 @@ br
       = f.text_field :url, value: @recipe.url, class: 'form-control'
   .form-group.row
     .col-sm-1
-      = f.label :cooking_recipe, class: 'col-form-label'
-    .col-sm-8
-      = f.text_area :cooking_recipe, value: @recipe.cooking_recipe, rows: "10", class: 'form-control', id: 'cooking_recipe'
+      = f.label :how_many, class: 'col-form-label'
+    .col-sm-6
+      = f.text_field :how_many, value: @recipe.how_many, class: 'form-control'
+  br
+  .row
+    label.mr-3.mt-2 もとの分量
+    input#original.col-sm-1.quantity type="number" min="1"
+    label.mr-5.mt-2  人分
+    label.mr-3.mt-2  登録する分量
+    input#register.col-sm-1.quantity type="number" min="1"
+    label.mr-5.mt-2  人分
+    button#conversion.btn.btn-info type="button" 変換
   br
     table.table
       thead
@@ -49,10 +58,15 @@ br
           tr.form-group.row
             td.col-sm-2= i.text_field :name, value: i.object.name, class: 'form-control'
             td.col-sm-2= i.text_field :amount, value: i.object.amount, class: 'form-control'
-            td.col-sm-2= i.text_field :quantity, class: 'form-control'
+            td.col-sm-2= i.text_field :quantity, value: i.object.quantity, class: 'form-control mod-quantity'
             td.col-sm-2= i.select :unit_id, Ingredient.unit_ids.map {|key, value| [I18n.t("enums.ingredient.unit_id.#{key}"), value]}
             / td.col-sm-1
             /   button.remove -
+  .form-group.row
+    .col-sm-1
+      = f.label :cooking_recipe, class: 'col-form-label'
+    .col-sm-8
+      = f.text_area :cooking_recipe, value: @recipe.cooking_recipe, rows: "10", class: 'form-control', id: 'cooking_recipe'
   br
   = f.submit nil, class: 'btn btn-primary'
 / button.btn.btn-info id="addRow" 行追加

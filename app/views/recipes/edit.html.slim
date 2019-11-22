@@ -18,6 +18,16 @@ p
 br
 br
 = form_with model: @recipe, local: true do |f|
+  .form-group.form-check.row
+    .col-sm-6
+      = f.label :cooked, class: 'form-check-label' do
+        = f.check_box :cooked, class: 'form-check-input'
+        | 調理済み
+  .form-group.row
+    .col-sm-2
+      = f.label :cooked_at, class: 'col-form-label'
+    .col-sm-5
+      = f.date_field :cooked_at, value: @recipe.cooked_at, class: 'form-control'
   .form-group.row
     .col-sm-1
       = f.label :name, class: 'col-form-label'
@@ -30,9 +40,18 @@ br
       = f.text_field :url, value: @recipe.url, class: 'form-control'
   .form-group.row
     .col-sm-1
-      = f.label :cooking_recipe, class: 'col-form-label'
-    .col-sm-8
-      = f.text_area :cooking_recipe, value: @recipe.cooking_recipe, rows: "10", class: 'form-control', id: 'cooking_recipe'
+      = f.label :how_many, class: 'col-form-label'
+    .col-sm-6
+      = f.text_field :how_many, value: @recipe.how_many, class: 'form-control'
+  br
+    .row
+    label.mr-3.mt-2 もとの分量
+    input#original.col-sm-1.quantity type="number" min="1"
+    label.mr-5.mt-2  人分
+    label.mr-3.mt-2  登録する分量
+    input#register.col-sm-1.quantity type="number" min="1"
+    label.mr-5.mt-2  人分
+    button#conversion.btn.btn-info type="button" 変換
   br
     table.table
         thead
@@ -52,10 +71,11 @@ br
               / td.col-sm-1
               /   button.remove -
   br
-  .form-check
-    = f.label :cooked, class: 'form-check-label' do
-      = f.check_box :cooked, class: 'form-check-input'
-      | 調理済み
+  .form-group.row
+    .col-sm-1
+      = f.label :cooking_recipe, class: 'col-form-label'
+    .col-sm-8
+      = f.text_area :cooking_recipe, value: @recipe.cooking_recipe, rows: "10", class: 'form-control', id: 'cooking_recipe'
   br
   = f.submit nil, class: 'btn btn-primary'
 / button.btn.btn-info id="addRow" 行追加
