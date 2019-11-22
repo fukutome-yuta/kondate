@@ -1,11 +1,11 @@
 h1 ログイン
 
 = form_with scope: :session, local: true do |f|
-  .form-row.align-items-center
+  .form-row.align-items-center.mb-2
     .col-auto
       = f.label :email, 'メールアドレス'
       = f.text_field :email, class: 'form-control', id: 'session_email'
-  .form-row.align-items-center
+  .form-row.align-items-center.mb-3
     .col-auto
       = f.label :password, 'パスワード'
       = f.password_field :password, class: 'form-control', id: 'session_password'
