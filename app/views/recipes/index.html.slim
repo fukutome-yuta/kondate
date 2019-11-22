@@ -2,8 +2,9 @@ h1 レシピ一覧
 
 tr
   - if @completed
-    p レシピリストをコンプリートしました。リストをリセットしてください。
-    = link_to 'リセット', recipes_reset_path({completed: @completed}), method: :post, class: 'btn btn-info'
+    .alert.alert-success 
+      レシピリストをコンプリートしました。リストをリセットしてください。
+    = link_to 'リセット', recipes_reset_path({completed: @completed}), method: :post, class: 'btn btn-info mr-3'
   = link_to '新規登録', new_recipe_path, class: 'btn btn-primary'
 
 .mb-3

@@ -4,9 +4,10 @@ h1 レシピの編集
   = link_to 'レシピ一覧', recipes_path, class: 'nav-link'
 
 - if @recipe.errors.present?
-  ul#errors.full_messages.each do |message|
+  ul#error_explanation
+  - @recipe.errors.full_messages.each do |message|
     li= message
-p
+p.mb-3
   = form_with url: recipes_fetch_path, local: true do |f|
     p 取り込みたいレシピのURLを入力してください
     .form-group.row
@@ -15,8 +16,7 @@ p
         = f.text_field :fetch_url, class: 'form-control'
       .col-sm-2
         = f.submit '取込', name: 'edit', class: 'btn btn-primary'
-br
-br
+
 = form_with model: @recipe, local: true do |f|
   .form-group.form-check.row
     .col-sm-6
@@ -38,7 +38,7 @@ br
       = f.label :url, class: 'col-form-label'
     .col-sm-6
       = f.text_field :url, value: @recipe.url, class: 'form-control'
-  .form-group.row
+  .form-group.row.mb-3
     .col-sm-1
       = f.label :how_many, class: 'col-form-label'
     .col-sm-6

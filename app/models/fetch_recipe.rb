@@ -14,7 +14,7 @@ class FetchRecipe
     step = @page.search('.step_text')
     ingredient_name = @page.search('.ingredient_name')
     ingredient_quantity = @page.search('.ingredient_quantity')
-
+    
     steps_text = ''
     step.length.times do |i|
       steps_text << "#{i+1}.#{step[i].text.strip}\n"
