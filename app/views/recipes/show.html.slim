@@ -24,7 +24,7 @@ table.table.table-hover
   tbody
     tr
       th.col-sm-1= Ingredient.human_attribute_name(:name)
-      th.col-sm-3= Ingredient.human_attribute_name(:amount) + @recipe.how_many
+      th.col-sm-3= Ingredient.human_attribute_name(:amount) + @recipe.how_many.to_s
     - @recipe.ingredients.each do |i|
       tr
         td= i.name
